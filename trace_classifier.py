@@ -3,6 +3,7 @@
 import numpy as np
 from sklearn import svm
 
+
 class TraceClassifier(object):
     def __init__(self):
         self.clf = svm.OneClassSVM(nu=0.01, kernel="linear", gamma='auto')

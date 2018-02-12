@@ -17,7 +17,7 @@ import glob
 import random
 import uuid
 
-#region CONSTS
+# region CONSTS
 
 MAX_SIZE_FOR_TRACE_FILE_IN_MB = 20
 PROJECT_ROOT_PATH = r"C:\personal-git\apache\commons-math"
@@ -25,9 +25,9 @@ TRACES_LOG_FILE_PATH = f"{PROJECT_ROOT_PATH}\\traces0.log"
 DATA_PATH = r"C:\personal-git\Thesis\ThesisScripts\data"
 BUG_DBS_PATH = r"C:\personal-git\Thesis\ThesisScripts\bugdbs"
 
-#endrgion
+# endregion
 
-#region Logger Setup
+# region Logger Setup
 logger = logging.getLogger('logger')
 logger.setLevel(logging.INFO)
 ch = logging.StreamHandler()
@@ -35,7 +35,8 @@ formatter = logging.Formatter('[%(asctime)s | %(levelname)s] - %(message)s')
 ch.setFormatter(formatter)
 logger.addHandler(ch)
 random.seed(7)
-#endregion
+# endregion
+
 
 class Trace(object):
     def __init__(self, tmid, trace_str):
@@ -45,9 +46,11 @@ class Trace(object):
         self.mid = trace_str[:trace_str.find(',')]
         self.vector = trace_str[trace_str.find(',')+1:]
 
+
 class ExperimentInstance(object):
     def __init__(self, tinfo_lst):
         self.tinfo_lst = tinfo_lst
+
 
 class TestInfo(object):
     def __init__(self, tfile_full_path, tfile_name, tmethod_name, tannotations_lst):
@@ -70,6 +73,7 @@ class TestInfo(object):
         self.is_faulty = (failures + errors > 0)
         if skipped > 0:
             raise ValueError(f"test was skipped")
+
 
 class TestSuitInformation(object):
     def __init__(self, tfiles_paths_list):
@@ -116,6 +120,7 @@ class TestSuitInformation(object):
                 logger.info(f"{traces_file_path} file size was changed to: {size_mb} MB")
         return filtered_count
 
+
 class SimpleJavaTestFileParser(object):
     parser = plyj.Parser()
 
@@ -161,6 +166,7 @@ class SimpleJavaTestFileParser(object):
                             annotations.append(modifier.name.value)
                     methodnameTannotations.append((method_decl.name, annotations))
         return methodnameTannotations
+
 
 def run_test(test_class_name, test_method_name):
     '''
